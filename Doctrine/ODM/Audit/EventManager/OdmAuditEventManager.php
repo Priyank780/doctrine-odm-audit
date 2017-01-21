@@ -117,11 +117,20 @@ class OdmAuditEventManager
                 $value = $this->getPersistentCollectionToArray($value, $unitOfWork);
             }
         } else if ($value instanceof DateTime) {
-            $value = CalendarUtility::getStandardDateFormat($value);
+            $value = $this->getStandardDateFormat($value);
         } else if (is_object($value)) {
             $value = $this->updateRecursively($value, $unitOfWork);
         }
         return $value;
+    }
+
+    /**
+     * @param DateTime $datetime Datetime object
+     * @param string $format Format of date
+     */
+    private function getStandardDateFormat(DateTime $datetime, $format = DateTime::RFC850)
+    {
+        return $datetime->format($format);
     }
 
     /**
