@@ -26,6 +26,15 @@ class OdmAuditEventManager
         $this->auditHandler = $auditHandler;
     }
 
+    /**
+     *
+     * @return IAuditHandler
+     */
+    public function getAuditHandler()
+    {
+        return $this->auditHandler;
+    }
+
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
         $dm  = $eventArgs->getDocumentManager();
