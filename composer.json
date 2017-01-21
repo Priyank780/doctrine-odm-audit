@@ -1,0 +1,28 @@
+{
+    "name": "doctrine-odm-audit",
+    "type": "library",
+    "description": "To Store New/old value as audit in database on flush event of ODM Doctrine",
+    "keywords": ["Audit", "ODM", "Doctrine"],
+    "license": "MIT",
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.14"
+        }
+    },
+    "authors": [
+        {
+            "name": "Priyank",
+            "email": "priyank780@yahoo.com"
+        }
+    ],
+    "require": {
+        "alcaeus/mongo-php-adapter": "^1.0",
+        "doctrine/mongodb-odm": "^1.0",
+        "mongodb/mongodb": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Doctrine\\": "Doctrine/"
+        }
+    }
+}
