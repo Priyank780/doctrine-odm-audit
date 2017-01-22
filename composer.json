@@ -1,5 +1,5 @@
 {
-    "name": "priyank/doctrine-odm-audit",
+    "name": "doctrine/doctrine-odm-audit",
     "type": "library",
     "description": "To Store New/old value as audit in database on flush event of ODM Doctrine",
     "keywords": ["Audit", "ODM", "Doctrine"],
