@@ -1,5 +1,7 @@
 # Doctrine ODM Audit
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f2091721c6a343e18396ce85479c61e9)](https://www.codacy.com/app/Priyank780/doctrine-odm-audit?utm_source=github.com&utm_medium=referral&utm_content=Priyank780/doctrine-odm-audit&utm_campaign=badger)
+
 Basic useful feature list:
 
  * To Store New/old value as audit in database on flush event of ODM Doctrine
