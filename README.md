@@ -1,6 +1,11 @@
 # Doctrine ODM Audit
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f2091721c6a343e18396ce85479c61e9)](https://www.codacy.com/app/Priyank780/doctrine-odm-audit?utm_source=github.com&utm_medium=referral&utm_content=Priyank780/doctrine-odm-audit&utm_campaign=badger)
+[![Latest Stable Version](https://poser.pugx.org/priyank/doctrine-odm-audit/v/stable)](https://packagist.org/packages/priyank/doctrine-odm-audit)
+[![Total Downloads](https://poser.pugx.org/priyank/doctrine-odm-audit/downloads)](https://packagist.org/packages/priyank/doctrine-odm-audit)
+[![Latest Unstable Version](https://poser.pugx.org/priyank/doctrine-odm-audit/v/unstable)](https://packagist.org/packages/priyank/doctrine-odm-audit)
+[![License](https://poser.pugx.org/priyank/doctrine-odm-audit/license)](https://packagist.org/packages/priyank/doctrine-odm-audit)
+[![composer.lock](https://poser.pugx.org/priyank/doctrine-odm-audit/composerlock)](https://packagist.org/packages/priyank/doctrine-odm-audit)
 
 Basic useful feature list:
 
