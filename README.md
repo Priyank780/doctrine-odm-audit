@@ -4,7 +4,8 @@
 
 Basic useful feature list:
 
- * To Store New/old value as audit in database on flush event of ODM Doctrine
+
+* To Store New/old value as audit in database on flush event of ODM Doctrine
 
 
 You need to implement IAuditHandler interface. Provide this Implemented class object as parameter of constructor.
