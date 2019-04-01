@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use Doctrine\ODM\MongoDB\UnitOfWork;
+use Exception;
 
 /**
  * Description of OdmAuditEventManager
@@ -35,10 +36,15 @@ class OdmAuditEventManager
         return $this->auditHandler;
     }
 
+    /**
+     * @param OnFlushEventArgs $eventArgs
+     * @throws Exception
+     */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
         $dm  = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
+
         if ($this->auditHandler->isUpdateEventAuditEnabled()) {
             foreach ($uow->getScheduledDocumentUpdates() as $obj) {
                 $this->persistRevisionObject($obj, $dm, "Update");
@@ -64,9 +70,10 @@ class OdmAuditEventManager
 
     /**
      *
-     * @param type $obj
+     * @param object $obj
      * @param DocumentManager $dm
      * @param string $eventType
+     * @throws Exception
      */
     private function persistRevisionObject($obj, DocumentManager $dm, $eventType)
     {
@@ -80,9 +87,11 @@ class OdmAuditEventManager
 
     /**
      *
-     * @param type $eventType
-     * @param type $obj
+     * @param string $eventType
+     * @param object $obj
      * @param UnitOfWork $unitOfWork
+     * @return mixed
+     * @throws Exception
      */
     private function getPersistentRevisionObject($eventType, $obj, UnitOfWork $unitOfWork)
     {
@@ -107,6 +116,8 @@ class OdmAuditEventManager
      *
      * @param mixed $value
      * @param boolean $isOldValue
+     * @param UnitOfWork $unitOfWork
+     * @return mixed|string
      */
     private function getUpdatedValue($value, $isOldValue, UnitOfWork $unitOfWork)
     {
@@ -127,6 +138,7 @@ class OdmAuditEventManager
     /**
      * @param DateTime $datetime Datetime object
      * @param string $format Format of date
+     * @return string
      */
     private function getStandardDateFormat(DateTime $datetime, $format = DateTime::RFC850)
     {
@@ -135,7 +147,7 @@ class OdmAuditEventManager
 
     /**
      *
-     * @param type $value
+     * @param object $value
      * @param UnitOfWork $unitOfWork
      * @return string
      */
@@ -160,14 +172,24 @@ class OdmAuditEventManager
      *
      * @param PersistentCollection $value
      * @param UnitOfWork $unitOfWork
-     * @return mixed
+     * @return string[]
      */
     private function getPersistentCollectionToArray(PersistentCollection $value, UnitOfWork $unitOfWork)
     {
         $valueArray = [];
         foreach ($value->getValues() as $obj) {
-            $valueArray[] = $unitOfWork->getDocumentActualData($obj);
+            $changes= $unitOfWork->getDocumentActualData($obj);
+            // If child embedded document in changes then re-generate its value in array
+            if (is_array($changes)) {
+                foreach ($changes as $index => $value){
+                    if ($value instanceof PersistentCollection) {
+                        $changes[$index] = $this->getPersistentCollectionToArray($value, $unitOfWork);
+                    }
+                }
+            }
+            $valueArray[] = $changes;
         }
+
         return $valueArray;
     }
 

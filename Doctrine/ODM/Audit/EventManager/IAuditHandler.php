@@ -20,7 +20,7 @@ interface IAuditHandler
 
     /**
      * Check Doctrine Object is require to store audit
-     * @param type $obj
+     * @param object $obj
      * @return boolean
      */
     function isRequireToStoreAudit($obj);
